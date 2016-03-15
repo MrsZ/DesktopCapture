@@ -1,5 +1,5 @@
 
-// DeskTopCaptureDlg.cpp : ÊµÏÖÎÄ¼ş
+// DeskTopCaptureDlg.cpp : å®ç°æ–‡ä»¶
 //
 
 #include "stdafx.h"
@@ -11,14 +11,14 @@
 #define new DEBUG_NEW
 #endif
 
-bool autoCapture = true;//ÊÇ·ñ×Ô¶¯¶¨Ê±½ØÍ¼
+bool autoCapture = true;//æ˜¯å¦è‡ªåŠ¨å®šæ—¶æˆªå›¾
 
-///ÀûÓÃGDI¶ÔÏó¶Ôµ±Ç°ÆÁÄ»½øĞĞ½ØÍ¼±£´æ
+///åˆ©ç”¨GDIå¯¹è±¡å¯¹å½“å‰å±å¹•è¿›è¡Œæˆªå›¾ä¿å­˜
 using namespace Gdiplus;
 int GetEncoderClsid(const WCHAR* format, CLSID& _Clsid)
 {
-    UINT num = 0;  // number of image encoders   
-    UINT size = 0; // size of the image encoder array in bytes   
+    UINT num = 0;  // number of image encoders
+    UINT size = 0; // size of the image encoder array in bytes
     GetImageEncodersSize(&num, &size);
     if (size == 0)
         return -1; // Failure
@@ -26,7 +26,7 @@ int GetEncoderClsid(const WCHAR* format, CLSID& _Clsid)
     ImageCodecInfo* pImageCodecInfo = (ImageCodecInfo*)(malloc(size));
     if (pImageCodecInfo == NULL) {
         free(pImageCodecInfo);
-        return -1;     //Failure   
+        return -1;     //Failure
     }
 
     GetImageEncoders(num, size, pImageCodecInfo);
@@ -34,35 +34,35 @@ int GetEncoderClsid(const WCHAR* format, CLSID& _Clsid)
         if (wcscmp(pImageCodecInfo[j].MimeType, format) == 0) {
             _Clsid = pImageCodecInfo[j].Clsid;
             free(pImageCodecInfo);
-            return j;     //Success   
+            return j;     //Success
         }
     free(pImageCodecInfo);
-    return -1;     //Failure   
+    return -1;     //Failure
 }
 
 CString captureImgPath = "";
 #include<direct.h>	//_mkdir
-//½«µ±Ç°ÆÁÄ»±£´æµ½ÎÄ¼ş
+//å°†å½“å‰å±å¹•ä¿å­˜åˆ°æ–‡ä»¶
 void CaptureScreen(char *filename = "")
 {
-    static const CString defaultDir = "D:/ScreenCapture/"; //Ä¬ÈÏÄ¿Â¼
+    static const CString defaultDir = "D:/ScreenCapture/"; //é»˜è®¤ç›®å½•
     char folder[500] = "";
     GetPrivateProfileString("ScreenCapture", "fatherFolder", defaultDir, folder, 500, ".\\config.ini");
     if (folder[strlen(folder) - 1] != '/' && folder[strlen(folder) - 1] != '\\')
-        strcat(folder, "/"); //Ìí¼ÓÄ¿Â¼·Ö¸ô·û
+        strcat(folder, "/"); //æ·»åŠ ç›®å½•åˆ†éš”ç¬¦
     CString lastFolder = folder;
-    if (!PathFileExists(folder)) { //ÎÄ¼ş²»´æÔÚÔòĞèÒª´´½¨
-        _mkdir(folder);  //½¨Á¢¸¸¼¶Ä¿Â¼
-        if (!PathFileExists(folder)) {//Èç¹ûÎÄ¼ş¼ĞÈÔÈ»²»´æÔÚ,¼´´´½¨Ê§°Ü
+    if (!PathFileExists(folder)) { //æ–‡ä»¶ä¸å­˜åœ¨åˆ™éœ€è¦åˆ›å»º
+        _mkdir(folder);  //å»ºç«‹çˆ¶çº§ç›®å½•
+        if (!PathFileExists(folder)) {//å¦‚æœæ–‡ä»¶å¤¹ä»ç„¶ä¸å­˜åœ¨,å³åˆ›å»ºå¤±è´¥
             strcpy(folder, defaultDir);
-            _mkdir(folder);  //½¨Á¢¸¸¼¶Ä¿Â¼
-            WritePrivateProfileString("ScreenCapture", "#ÎÂÜ°ÌáÊ¾"
-                , "Éè¶¨Ä¿Â¼²»¿ÉĞ´,ÒÑ×Ô¶¯ÉèÖÃÎªÄ¬ÈÏÄ¿Â¼", ".\\config.ini");
+            _mkdir(folder);  //å»ºç«‹çˆ¶çº§ç›®å½•
+            WritePrivateProfileString("ScreenCapture", "#æ¸©é¦¨æç¤º"
+                                      , "è®¾å®šç›®å½•ä¸å¯å†™,å·²è‡ªåŠ¨è®¾ç½®ä¸ºé»˜è®¤ç›®å½•", ".\\config.ini");
         }
         WritePrivateProfileString("ScreenCapture", "fatherFolder", folder, ".\\config.ini");
     }
     CString fullPathName = filename;
-    //Èç¹ûÃ»ÓĞ´«µİÎÄ¼şÃûµÄ²ÎÊıÔòÓÃÅäÖÃÎÄ¼şÖĞµÄÂ·¾¶ºÍµ±Ç°ÈÕÆÚºÍÊ±¼äÉú³ÉÎÄ¼şÃû
+    //å¦‚æœæ²¡æœ‰ä¼ é€’æ–‡ä»¶åçš„å‚æ•°åˆ™ç”¨é…ç½®æ–‡ä»¶ä¸­çš„è·¯å¾„å’Œå½“å‰æ—¥æœŸå’Œæ—¶é—´ç”Ÿæˆæ–‡ä»¶å
     if (filename == 0 || filename[0] == 0) {
         time_t now_time = time(NULL);
         struct tm *newtime = localtime(&now_time);
@@ -72,38 +72,38 @@ void CaptureScreen(char *filename = "")
         CString now = "";
         now.Format("%s_%s", _date, _time);
         captureImgPath = (CString)folder + _date;
-        _mkdir(captureImgPath);//½¨Á¢×Ó¼¶Ä¿Â¼£¬Ä¿Â¼ÃûÎªÈÕÆÚ
+        _mkdir(captureImgPath);//å»ºç«‹å­çº§ç›®å½•ï¼Œç›®å½•åä¸ºæ—¥æœŸ
         SYSTEMTIME currentTime;
-        GetSystemTime(&currentTime); //»ñÈ¡µ±Ç°Ê±¼äµÄºÁÃëÊı
+        GetSystemTime(&currentTime); //è·å–å½“å‰æ—¶é—´çš„æ¯«ç§’æ•°
         fullPathName.Format("%s/%s-%d.png", captureImgPath, now, currentTime.wMilliseconds);
     }
-    //¿ªÊ¼»ñÈ¡ÆÁÄ»ÄÚÈİ
-    CDC *pDC = CDC::FromHandle(::GetDC(NULL));//»ñÈ¡µ±Ç°Õû¸öÆÁÄ»DC
+    //å¼€å§‹è·å–å±å¹•å†…å®¹
+    CDC *pDC = CDC::FromHandle(::GetDC(NULL));//è·å–å½“å‰æ•´ä¸ªå±å¹•DC
     int Width = pDC->GetDeviceCaps(HORZRES);
     int Height = pDC->GetDeviceCaps(VERTRES);
 
-    CDC memDC;//ÄÚ´æDC
+    CDC memDC;//å†…å­˜DC
     memDC.CreateCompatibleDC(pDC);
 
     CBitmap memBitmap;
-    memBitmap.CreateCompatibleBitmap(pDC, Width, Height);//½¨Á¢ºÍÆÁÄ»¼æÈİµÄbitmap
-    CBitmap *oldmemBitmap = memDC.SelectObject(&memBitmap);//½«memBitmapÑ¡ÈëÄÚ´æDC
-    memDC.BitBlt(0, 0, Width, Height, pDC, 0, 0, SRCCOPY);//¸´ÖÆÆÁÄ»Í¼Ïñµ½ÄÚ´æDC
-                                                          //ÒÔÏÂ´úÂë±£´æmemDCÖĞµÄÎ»Í¼µ½pngÎÄ¼ş
-    Bitmap mbitmap(HBITMAP(memBitmap), 0);//´ÓCBitmapÖĞµÃµ½HBitmap
-    CLSID imgCode = { 0 }; //Í¼Ïñ±àÂë
-    if (-1 != GetEncoderClsid(L"image/png", imgCode)) { //Ñ¡Ôñ±àÂë
+    memBitmap.CreateCompatibleBitmap(pDC, Width, Height);//å»ºç«‹å’Œå±å¹•å…¼å®¹çš„bitmap
+    CBitmap *oldmemBitmap = memDC.SelectObject(&memBitmap);//å°†memBitmapé€‰å…¥å†…å­˜DC
+    memDC.BitBlt(0, 0, Width, Height, pDC, 0, 0, SRCCOPY);//å¤åˆ¶å±å¹•å›¾åƒåˆ°å†…å­˜DC
+    //ä»¥ä¸‹ä»£ç ä¿å­˜memDCä¸­çš„ä½å›¾åˆ°pngæ–‡ä»¶
+    Bitmap mbitmap(HBITMAP(memBitmap), 0);//ä»CBitmapä¸­å¾—åˆ°HBitmap
+    CLSID imgCode = { 0 }; //å›¾åƒç¼–ç 
+    if (-1 != GetEncoderClsid(L"image/png", imgCode)) { //é€‰æ‹©ç¼–ç 
         USES_CONVERSION;
         CStringW  ws = A2W(fullPathName);
-        mbitmap.Save(ws.GetBuffer(), &imgCode);//±£´æ
+        mbitmap.Save(ws.GetBuffer(), &imgCode);//ä¿å­˜
     }
     memDC.SelectObject(oldmemBitmap);
-    //µ¯³öÍ¨ÖªÀ¸ÆøÅİ
-    CString ps = "\nÄú¿É°´ÏÂCtrl+Alt+1´ò¿ª½ØÍ¼ËùÔÚÎÄ¼ş¼ĞÓ´"; //¸½¼ÓĞÅÏ¢
-    if (lastFolder != folder)    //Èç¹ûÓÃ»§ÉèÖÃµÄÄ¿Â¼²»¿ÉĞ´ÔòÌáÊ¾
-        ps = "\n°¡Å¶,Éè¶¨Ä¿Â¼<" + CString(lastFolder) + ">²»¿ÉĞ´,ÒÑ×Ô¶¯ÉèÖÃÎªÄ¬ÈÏÄ¿Â¼:" + folder;
+    //å¼¹å‡ºé€šçŸ¥æ æ°”æ³¡
+    CString ps = "\næ‚¨å¯æŒ‰ä¸‹Ctrl+Alt+1æ‰“å¼€æˆªå›¾æ‰€åœ¨æ–‡ä»¶å¤¹å“Ÿ"; //é™„åŠ ä¿¡æ¯
+    if (lastFolder != folder)    //å¦‚æœç”¨æˆ·è®¾ç½®çš„ç›®å½•ä¸å¯å†™åˆ™æç¤º
+        ps = "\nå•Šå“¦,è®¾å®šç›®å½•<" + CString(lastFolder) + ">ä¸å¯å†™,å·²è‡ªåŠ¨è®¾ç½®ä¸ºé»˜è®¤ç›®å½•:" + folder;
     static CDesktopCaptureDlg* pDlg = (CDesktopCaptureDlg*)AfxGetMainWnd();
-    pDlg->showTips("½ØÍ¼³É¹¦", "ÒÑ½«½ØÍ¼ÎÄ¼ş±£´æµ½:" + fullPathName + ps);
+    pDlg->showTips("æˆªå›¾æˆåŠŸ", "å·²å°†æˆªå›¾æ–‡ä»¶ä¿å­˜åˆ°:" + fullPathName + ps);
 }
 
 UINT catchScreenThread(void*)
@@ -118,7 +118,7 @@ UINT catchScreenThread(void*)
 }
 
 
-// CDesktopCaptureDlg ¶Ô»°¿ò
+// CDesktopCaptureDlg å¯¹è¯æ¡†
 
 CDesktopCaptureDlg::CDesktopCaptureDlg(CWnd* pParent /*=NULL*/)
     : CDialogEx(CDesktopCaptureDlg::IDD, pParent)
@@ -143,53 +143,53 @@ void CDesktopCaptureDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CDesktopCaptureDlg, CDialogEx)
     ON_WM_PAINT()
     ON_WM_QUERYDRAGICON()
-    ON_MESSAGE(WM_HOTKEY, OnHotkey) //Ìí¼Ó´Ë¾äÊµÏÖÈ«¾Ö¿ì½İ¼ü
+    ON_MESSAGE(WM_HOTKEY, OnHotkey) //æ·»åŠ æ­¤å¥å®ç°å…¨å±€å¿«æ·é”®
     ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
-// CDesktopCaptureDlg ÏûÏ¢´¦Àí³ÌĞò
+// CDesktopCaptureDlg æ¶ˆæ¯å¤„ç†ç¨‹åº
 
 BOOL CDesktopCaptureDlg::OnInitDialog()
 {
     CDialogEx::OnInitDialog();
 
-    // ÉèÖÃ´Ë¶Ô»°¿òµÄÍ¼±ê¡£µ±Ó¦ÓÃ³ÌĞòÖ÷´°¿Ú²»ÊÇ¶Ô»°¿òÊ±£¬¿ò¼Ü½«×Ô¶¯
-    //  Ö´ĞĞ´Ë²Ù×÷
-    SetIcon(m_hIcon, TRUE);			// ÉèÖÃ´óÍ¼±ê
-    SetIcon(m_hIcon, FALSE);		// ÉèÖÃĞ¡Í¼±ê
-    ShowWindow(SW_HIDE);//²»ÏÔÊ¾´°¿Ú
-    ModifyStyle(WS_THICKFRAME, NULL);//²»ÏÔÊ¾±ß¿ò
-    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);//²»ÔÚÈÎÎñÀ¸ÏÔÊ¾
-    MoveWindow(-9, 700, 10, 10);
+    // è®¾ç½®æ­¤å¯¹è¯æ¡†çš„å›¾æ ‡ã€‚å½“åº”ç”¨ç¨‹åºä¸»çª—å£ä¸æ˜¯å¯¹è¯æ¡†æ—¶ï¼Œæ¡†æ¶å°†è‡ªåŠ¨
+    //  æ‰§è¡Œæ­¤æ“ä½œ
+    SetIcon(m_hIcon, TRUE);			// è®¾ç½®å¤§å›¾æ ‡
+    SetIcon(m_hIcon, FALSE);		// è®¾ç½®å°å›¾æ ‡
+    ShowWindow(SW_HIDE);//ä¸æ˜¾ç¤ºçª—å£
+    ModifyStyle(WS_THICKFRAME, NULL);//ä¸æ˜¾ç¤ºè¾¹æ¡†
+    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);//ä¸åœ¨ä»»åŠ¡æ æ˜¾ç¤º
+    MoveWindow(-8, 700, 10, 10);
 
-    // TODO: ÔÚ´ËÌí¼Ó¶îÍâµÄ³õÊ¼»¯´úÂë
-    //×¢²áÈ«¾Ö½ØÍ¼¿ì½İ¼ü
+    // TODO: åœ¨æ­¤æ·»åŠ é¢å¤–çš„åˆå§‹åŒ–ä»£ç 
+    //æ³¨å†Œå…¨å±€æˆªå›¾å¿«æ·é”®
     ::RegisterHotKey(m_hWnd, ID_HKCAPTURE, MOD_CONTROL | MOD_ALT, '0');
-    //×¢²áÈ«¾Ö´ò¿ª½ØÍ¼ÎÄ¼ş¼Ğ
+    //æ³¨å†Œå…¨å±€æ‰“å¼€æˆªå›¾æ–‡ä»¶å¤¹
     ::RegisterHotKey(m_hWnd, ID_HKOPENFOLDER, MOD_CONTROL | MOD_ALT, '1');
-    //×¢²áÈ«¾Ö×Ô¶¯½ØÍ¼¿ªÆô / Í£Ö¹¿ì½İ¼ü
+    //æ³¨å†Œå…¨å±€è‡ªåŠ¨æˆªå›¾å¼€å¯ / åœæ­¢å¿«æ·é”®
     ::RegisterHotKey(m_hWnd, ID_HKChangeAutoCap, MOD_CONTROL | MOD_ALT, '2');
-    //×¢²áÈ«¾ÖÍË³ö¿ì½İ¼ü
+    //æ³¨å†Œå…¨å±€é€€å‡ºå¿«æ·é”®
     ::RegisterHotKey(m_hWnd, ID_HKExit, MOD_CONTROL | MOD_ALT, '9');
-    AfxBeginThread(catchScreenThread, 0); //¿ªÆô¸¨ÖúÏß³Ì×Ô¶¯¶¨Ê±½ØÍ¼
-    //Ìí¼ÓÍĞÅÌÏûÏ¢
+    AfxBeginThread(catchScreenThread, 0); //å¼€å¯è¾…åŠ©çº¿ç¨‹è‡ªåŠ¨å®šæ—¶æˆªå›¾
+    //æ·»åŠ æ‰˜ç›˜æ¶ˆæ¯
     ndMain.cbSize = sizeof(NOTIFYICONDATA);
     ndMain.hWnd = m_hWnd;
     ndMain.uFlags = NIF_INFO | NIF_ICON | NIF_MESSAGE | NIF_TIP;
     ndMain.hIcon = m_hIcon;
-    strcpy(ndMain.szTip, "½ØÍ¼Ğ¡¹¤¾ß");
-    showTips("ÎÂÜ°ÌáÊ¾", "½ØÍ¼¹¤¾ßÒÑÕı³£ÔËĞĞ£¬°´ÏÂCtrl+Alt+0¿ÉÒÔ½ØÍ¼Å¶", NIM_ADD);
-    return TRUE;  // ³ı·Ç½«½¹µãÉèÖÃµ½¿Ø¼ş£¬·ñÔò·µ»Ø TRUE
+    strcpy(ndMain.szTip, "æˆªå›¾å°å·¥å…·");
+    showTips("æ¸©é¦¨æç¤º", "æˆªå›¾å·¥å…·å·²æ­£å¸¸è¿è¡Œï¼ŒæŒ‰ä¸‹Ctrl+Alt+0å¯ä»¥æˆªå›¾å“¦", NIM_ADD);
+    return TRUE;  // é™¤éå°†ç„¦ç‚¹è®¾ç½®åˆ°æ§ä»¶ï¼Œå¦åˆ™è¿”å› TRUE
 }
 
 void CDesktopCaptureDlg::OnPaint()
 {
     if (IsIconic()) {
-        CPaintDC dc(this); // ÓÃÓÚ»æÖÆµÄÉè±¸ÉÏÏÂÎÄ
+        CPaintDC dc(this); // ç”¨äºç»˜åˆ¶çš„è®¾å¤‡ä¸Šä¸‹æ–‡
 
         SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
-        // Ê¹Í¼±êÔÚ¹¤×÷Çø¾ØĞÎÖĞ¾ÓÖĞ
+        // ä½¿å›¾æ ‡åœ¨å·¥ä½œåŒºçŸ©å½¢ä¸­å±…ä¸­
         int cxIcon = GetSystemMetrics(SM_CXICON);
         int cyIcon = GetSystemMetrics(SM_CYICON);
         CRect rect;
@@ -197,10 +197,9 @@ void CDesktopCaptureDlg::OnPaint()
         int x = (rect.Width() - cxIcon + 1) / 2;
         int y = (rect.Height() - cyIcon + 1) / 2;
 
-        // »æÖÆÍ¼±ê
+        // ç»˜åˆ¶å›¾æ ‡
         dc.DrawIcon(x, y, m_hIcon);
-    }
-    else {
+    } else {
         CDialogEx::OnPaint();
     }
 }
@@ -213,20 +212,20 @@ HCURSOR CDesktopCaptureDlg::OnQueryDragIcon()
 long CDesktopCaptureDlg::OnHotkey(WPARAM wParam, LPARAM lParam)
 {
     switch (wParam) {
-        case ID_HKCAPTURE:
-            CaptureScreen();
-            break;
-        case ID_HKExit:
-            PostQuitMessage(-1);
-            break;
-        case ID_HKOPENFOLDER:
-            OnLButtonDblClk(0, 0);
-            break;
-        case ID_HKChangeAutoCap:
-            autoCapture = !autoCapture;
-            break;
-        default:
-            break;
+    case ID_HKCAPTURE:
+        CaptureScreen();
+        break;
+    case ID_HKExit:
+        PostQuitMessage(-1);
+        break;
+    case ID_HKOPENFOLDER:
+        OnLButtonDblClk(0, 0);
+        break;
+    case ID_HKChangeAutoCap:
+        autoCapture = !autoCapture;
+        break;
+    default:
+        break;
     }
     return 0;
 }
@@ -235,18 +234,20 @@ void CDesktopCaptureDlg::OnOk()
 {
 }
 
-//´ò¿ª´æ·Å½ØÍ¼µÄÎÄ¼ş¼Ğ
+//æ‰“å¼€å­˜æ”¾æˆªå›¾çš„æ–‡ä»¶å¤¹
 void CDesktopCaptureDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-    if (captureImgPath == "")
+    if (captureImgPath == "") //è·¯å¾„ä¸ºç©ºè¡¨ç¤ºè¿˜æ²¡ä¿å­˜è¿‡æˆªå›¾,å…ˆä¿å­˜ä¸€å¼ ç„¶åæ‰“å¼€è¯¥æ–‡ä»¶å¤¹
         CaptureScreen();
-    ShellExecute(this->GetSafeHwnd(), "open", captureImgPath, 0, 0, SW_SHOW);
+    else if (!PathFileExists(captureImgPath)) //è·¯å¾„ä¸ä¸ºç©ºè¿˜éœ€è¦ä¿è¯æ–‡ä»¶å¤¹å­˜åœ¨,å› ä¸ºå¤–éƒ¨å¯èƒ½ä¸»åŠ¨åˆ é™¤
+        _mkdir(captureImgPath);
+    ShellExecute(GetSafeHwnd(), "open", captureImgPath, 0, 0, SW_SHOW);
     CDialogEx::OnLButtonDblClk(nFlags, point);
 }
 
 void CDesktopCaptureDlg::showTips(const CString& title, const CString& info, int op)
 {
-    strcpy(ndMain.szInfoTitle, title);//ÆøÅİ±êÌâ
-    strcpy(ndMain.szInfo, info);//ÆøÅİÄÚÈİ  
+    strcpy(ndMain.szInfoTitle, title);//æ°”æ³¡æ ‡é¢˜
+    strcpy(ndMain.szInfo, info);//æ°”æ³¡å†…å®¹
     Shell_NotifyIcon(op, &ndMain);
 }
