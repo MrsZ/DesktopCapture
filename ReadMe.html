@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<!-- 
+Help:
+
+***Shortcut:
+ctrl+alt+0　　(截取当前屏幕并保存到指定目录)
+ctrl+alt+9　　(关闭该程序，功能类似于在左下角的主窗口上按下ESC)
+ctrl+alt+1　　(打开存放截图的文件夹，功能类似于在左下角的主窗口上双击鼠标左键)
+ctrl+alt+2　　(停止/开启设定的自动截图，但保留手动快捷键截图功能，再按一次可切换模式)
+***configuration file:
+Sleep　　　　　休眠时间,即自动截图时间间隔
+fatherFolder　 截图文件位置的父目录，程序会在该目录下生成一个当前日期的子文件夹
+ -->
+<html lang="en" class=" is-copy-enabled is-u2f-enabled"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+
+    <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-cd800dff43634e4bccd9a1bd2311f68700f593ee9729b4fbb927fed855f4be55.css" media="all" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-af4234a38da87c3b322532d7cec1885656f778220eebda2d8bdbbbd0c2843b20.css" media="all" rel="stylesheet">
+    
+    
+    
+    
+
+    <link as="script" href="./webary_DesktopCapture_files/frameworks-1fdd144c4b02024b03654934bcd7eb308f34bcdd374d6579a984c850d69dfd08.js" rel="preload">
+    <link as="script" href="./webary_DesktopCapture_files/github-bac94d428d8433c18cd8a40ad6f352f6c8b4a18ea07c492a40003d7785a240ef.js" rel="preload">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=1020">
+    
+    
+    <title>webary/DesktopCapture: A application which can capture automatically or by keyboard shortcuts without loss focus  from present application</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" href="https://github.com/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://github.com/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://github.com/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://github.com/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://github.com/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://github.com/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://github.com/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://github.com/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://github.com/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://github.com/apple-touch-icon-180x180.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="https://avatars0.githubusercontent.com/u/8557750?v=3&amp;s=400" name="twitter:image:src"><meta content="@github" name="twitter:site"><meta content="summary" name="twitter:card"><meta content="webary/DesktopCapture" name="twitter:title"><meta content="DesktopCapture - A application which can capture automatically or by keyboard shortcuts without loss focus  from present application" name="twitter:description">
+      <meta content="https://avatars0.githubusercontent.com/u/8557750?v=3&amp;s=400" property="og:image"><meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="webary/DesktopCapture" property="og:title"><meta content="" property="og:url"><meta content="DesktopCapture - A application which can capture automatically or by keyboard shortcuts without loss focus  from present application" property="og:description">
+      <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+    <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    <link rel="web-socket" href="wss://live.github.com/_sockets/ODU1Nzc1MDozZmFmZGI1NzlkYWMxNjhiYmE5NWE4NmQzYmI4Nzg5MTo3MGVlMmRmNTk0NDcwZGUzN2ViNGYwYmY0NDE5NzZhYjA2MDNlMzQ5MjQ3Zjk2ZjE0NjUyNTc5YjJiZmQ1YjZk--e659e97fcb07ce41559439031d906a3a4c532cc9">
+    <meta name="pjax-timeout" content="1000">
+    <link rel="sudo-modal" href="https://github.com/sessions/sudo_modal">
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_source" data-pjax-transient="">
+
+    <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host"><meta content="github" name="octolytics-app-id"><meta content="1B128959:680A:157F653:56E7D072" name="octolytics-dimension-request_id"><meta content="8557750" name="octolytics-actor-id"><meta content="webary" name="octolytics-actor-login"><meta content="7894073f3383f346c0e642395c2afc0e376f5f280841018ea2d3ecac844f1de1" name="octolytics-actor-hash">
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;" data-pjax-transient="true" name="analytics-location">
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged In">
+
+
+
+        <meta name="hostname" content="github.com">
+    <meta name="user-login" content="webary">
+
+        <meta name="expected-hostname" content="github.com">
+      <meta name="js-proxy-site-detection-payload" content="MmJiNjA2OTIxYjA4OWEzMGIzMDA1MjI1NTM4NjY0ZmZmZTY4ZWJmOTM4Njg1NDFkM2RhNzM5YmM2YWI4NDYwMHx7InJlbW90ZV9hZGRyZXNzIjoiMjcuMTguMTM3Ljg5IiwicmVxdWVzdF9pZCI6IjFCMTI4OTU5OjY4MEE6MTU3RjY1Mzo1NkU3RDA3MiJ9">
+
+      <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#4078c0">
+      <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+    <meta content="a712ad2f3af8f95401dea4a20d554cd4aa4a6c4b" name="form-nonce">
+
+    <meta http-equiv="x-pjax-version" content="bf0917c54d01b13f1a5b6cebf1378aec">
+    
+
+      
+  <meta name="description" content="DesktopCapture - A application which can capture automatically or by keyboard shortcuts without loss focus  from present application">
+  <meta name="go-import" content="github.com/webary/DesktopCapture git .git">
+
+  <meta content="8557750" name="octolytics-dimension-user_id"><meta content="webary" name="octolytics-dimension-user_login"><meta content="53921348" name="octolytics-dimension-repository_id"><meta content="webary/DesktopCapture" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="false" name="octolytics-dimension-repository_is_fork"><meta content="53921348" name="octolytics-dimension-repository_network_root_id"><meta content="webary/DesktopCapture" name="octolytics-dimension-repository_network_root_nwo">
+  <link href="/commits/master.atom" rel="alternate" title="Recent Commits to DesktopCapture:master" type="application/atom+xml">
+
+
+      <link rel="canonical" href="./webary_DesktopCapture_files/webary_DesktopCapture.html" data-pjax-transient="">
+  </head>
+
+
+  <body class="logged_in   env-production windows vis-public">
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+
+    <div id="start-of-content" class="accessibility-aid"></div>
+
+      <div id="js-flash-container">
+</div>
+
+
+    <div role="main" class="main-content">
+        <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" class="context-loader-container js-repo-nav-next" data-pjax-container="">
+      
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+<div class="repository-meta js-details-container">
+  <span class="repository-meta-content">
+        <span itemprop="about"> A application which can capture automatically or by keyboard shortcuts without loss focus from present application</span>
+  </span>
+
+    <span class="edit-link">— <button type="button" class="btn-link muted-link js-details-target">Edit</button></span>
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/settings/update_meta" class="edit-repository-meta" data-form-nonce="a712ad2f3af8f95401dea4a20d554cd4aa4a6c4b" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="qzWjkQL/u6u8sXEpYOZxPA/DdbZQnfmFt6y1yhcgrqxScGDBdnCv7i3ecRfTz5I8BL3sEQdUVDYp6YUdy8vRBQ=="></div>
+
+      <div class="field">
+        <label for="repo_description">Description</label>
+        <input type="text" id="repo_description" class="input-contrast repo-description-field" name="repo_description" value="A application which can capture automatically or by keyboard shortcuts without loss focus  from present application" placeholder="Short description of this repository">
+      </div>
+
+      <div class="field">
+        <label for="repo_homepage">Website</label>
+        <input type="url" id="repo_homepage" class="input-contrast repo-website-field" name="repo_homepage" value="" placeholder="Website for this repository (optional)">
+      </div>
+
+      <button class="btn">Save</button>
+      or <button type="button" class="btn-link js-details-target">Cancel</button>
+</form></div>
+
+    <div class="repository-lang-stats-graph js-toggle-lang-stats" title="Click for language details" data-ga-click="Repository, language bar stats toggle, location:repo overview">
+      <span class="language-color" aria-label="C++ 89.7%" style="width:89.7%; background-color:#f34b7d;" itemprop="programmingLanguage">C++</span>
+      <span class="language-color" aria-label="C 10.3%" style="width:10.3%; background-color:#555555;" itemprop="programmingLanguage">C</span>
+    </div>
+
+      <div class="js-socket-channel js-updatable-content" data-channel="webary/DesktopCapture:post-receive:webary" data-url="/webary/DesktopCapture/show_partial?partial=tree%2Frecently_touched_branches_list">
+
+
+  </div>
+
+  <div class="repo-file-upload-tree-target js-document-dropzone js-upload-manifest-tree-view" data-drop-url="/webary/DesktopCapture/upload/" data-directory-upload="">
+    <div class="repo-file-upload-outline">
+      <div class="repo-file-upload-slate">
+          <svg width="204" height="52" viewBox="0 0 204 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="files-lg" class="files-lg" fill="#717171">
+              <path class="file-graph" d="M40,42 L40,12 L42,12 L42,40 L64,40 L64,42 L40,42 L40,42 Z M45,37 L45,16 L49,16 L49,37 L45,37 L45,37 Z M51,37 L51,22 L55,22 L55,37 L51,37 L51,37 Z M68.5,48 L35.5,48 C34.7,48 34,47.3 34,46.5 L34,7.5 C34,6.7 34.7,6 35.5,6 L59,6 L70,17 L70,46.5 C70,47.3 69.3,48 68.5,48 L68.5,48 Z M68,18 L58,8 L36,8 L36,46 L68,46 L68,18 L68,18 Z M57,37 L57,27 L61,27 L61,37 L57,37 L57,37 Z"></path>
+              <path class="file-zip" d="M17,14 L1,14 C0.4,14 0,14.5 0,15 L0,41 C0,41.5 0.4,42 1,42 L23,42 C23.6,42 24,41.5 24,41 L24,21 L17,14 Z M22,40 L2,40 L2,16 L8,16 L8,18 L10,18 L10,16 L16,16 L22,22 L22,40 Z M8,30.5 C6.8,31.2 6,32.5 6,34 L6,36 L14,36 L14,34 C14,31.8 12.2,30 10,30 L10,28 L8,28 L8,30.5 Z M12,32 L12,34 L8,34 L8,32 L12,32 Z M10,20 L10,18 L12,18 L12,20 L10,20 Z M8,20 L10,20 L10,22 L8,22 L8,20 Z M10,24 L10,22 L12,22 L12,24 L10,24 Z M8,24 L10,24 L10,26 L8,26 L8,24 Z M10,28 L10,26 L12,26 L12,28 L10,28 Z"></path>
+              <path class="file-generic" d="M168.5,48 L135.5,48 C134.7,48 134,47.3 134,46.5 L134,7.5 C134,6.7 134.7,6 135.5,6 L159,6 L170,17 L170,46.5 C170,47.3 169.3,48 168.5,48 Z M168,18 L158,8 L136,8 L136,46 L168,46 L168,18 Z M140,35 L140,33 L161,33 L161,35 L140,35 Z M140,30 L140,28 L161,28 L161,30 L140,30 Z M140,25 L140,23 L161,23 L161,25 L140,25 Z M140,17 L140,15 L152,15 L152,17 L140,17 Z M140,40 L140,38 L161,38 L161,40 L140,40 Z"></path>
+              <path class="file-acrobat" d="M181,14 C180.5,14 180,14.5 180,15 L180,41 C180,41.5 180.5,42 181,42 L203,42 C203.5,42 204,41.5 204,41 L204,23 L204,21 L197,14 L181,14 Z M200.8,29.9 C200.3,29.8 199.8,29.7 199.3,29.7 C198.5,29.7 197.7,29.8 196.8,29.9 C196.3,29.8 195.7,29.3 194.8,28.6 C193.9,27.9 193.1,26.3 192.2,23.9 C192.5,22.2 192.6,20.9 192.7,19.9 C192.8,18.9 192.8,18.4 192.7,18.4 C192.8,17.6 192.6,17 192.3,16.6 C192,16.2 191.4,16 191,16 L196,16 L202,22 L202,30.4 C201.6,30.2 201.2,30 200.8,29.9 Z M182,16 L190,16 C189.8,16.1 189.6,16.2 189.4,16.4 C189.2,16.6 189,16.9 188.9,17.4 C188.7,18.2 188.6,19.2 188.7,20.3 C188.8,21.5 189.1,22.7 189.4,23.9 C188.9,25.4 188.2,27.2 187.2,29.3 C186.2,31.4 185.6,32.6 185.4,33 C185.1,33.1 184.7,33.3 184,33.6 C183.3,33.9 182.7,34.4 182,35 L182,16 L182,16 Z M195.1,31 C193.8,31.2 192.6,31.4 191.5,31.7 C190.3,32 189.1,32.4 187.8,32.9 L189,30.4 C189.8,28.7 190.4,27.2 190.8,25.8 L190.8,25.9 C191.7,28.2 192.5,29.6 193.1,30.1 C193.8,30.5 194.5,30.8 195.1,31 L195.1,31 Z M184.1,39.2 C185,38.4 186.2,36.9 187.7,34.4 C188.3,34.1 188.9,33.9 189.3,33.7 L190.1,33.4 C191.1,33.1 192,32.9 193,32.7 C194,32.5 195,32.4 196,32.3 C196.9,32.7 197.9,33.1 198.8,33.3 C199.8,33.6 200.6,33.7 201.3,33.8 C201.5,33.8 201.8,34 202,34 L202,40 L182,40 C182.4,39.9 183.6,39.6 184.1,39.2 Z"></path>
+              <path class="file-code" d="M111,0 L82,0 C80.9,0 80,0.9 80,2 L80,50 C80,51.1 80.9,52 82,52 L122,52 C123.1,52 124,51.1 124,50 L124,13 L111,0 Z M122,50 L82,50 L82,2 L110,2 L122,14 L122,50 Z M107,18 L116,28 L107,38 L104,35 L111,28 L104,21 L107,18 Z M100,21 L93,28 L100,35 L97,38 L88,28 L97,18 L100,21 Z"></path>
+            </g>
+          </svg>
+
+          <h2>Drop to upload your files</h2>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="readme" class="readme boxed-group clearfix announce instapaper_body md">
+    <h3>
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M2 5h4v1H2v-1z m0 3h4v-1H2v1z m0 2h4v-1H2v1z m11-5H9v1h4v-1z m0 2H9v1h4v-1z m0 2H9v1h4v-1z m2-6v9c0 0.55-0.45 1-1 1H8.5l-1 1-1-1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h5.5l1 1 1-1h5.5c0.55 0 1 0.45 1 1z m-8 0.5l-0.5-0.5H1v9h6V3.5z m7-0.5H8.5l-0.5 0.5v8.5h6V3z"></path></svg>
+      README.md
+    </h3>
+
+      <article class="markdown-body entry-content" itemprop="text"><h1><a id="user-content-desktopcapture" class="anchor" href="#desktopcapture" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>DesktopCapture</h1>
+
+<p>A application which can capture automatically or by keyboard shortcuts without loss focus  from present application</p>
+
+<hr>
+
+<h4><a id="user-content-develop-tools" class="anchor" href="#develop-tools" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Develop tools:</h4>
+
+<p>Microsoft Visual Studio 2015</p>
+
+<h4><a id="user-content-project-type" class="anchor" href="#project-type" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Project type:</h4>
+
+<p>MFC project based on dialog  </p>
+
+<hr>
+
+<h4><a id="user-content-help" class="anchor" href="#help" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Help:</h4>
+
+<ul>
+<li>Shortcut
+
+<ol>
+<li><strong>ctrl+alt+0</strong>　　capture current screen and save it automatically to appointed folder<br>
+　　　　　　　(截取当前屏幕并保存到指定目录)</li>
+<li><strong>ctrl+alt+9</strong>　　close the application, like the function of press down ESC key on the main dialog<br>
+　　　　　　　(关闭该程序，功能类似于在左下角的主窗口上按下ESC)</li>
+<li><strong>ctrl+alt+1</strong>　　open the appointed folder, like the function of double-click on the main dialog<br>
+　　　　　　　(打开存放截图的文件夹，功能类似于在左下角的主窗口上双击鼠标左键)</li>
+<li><strong>ctrl+alt+2</strong>　　stop/start capture automatically, reserve manual capture<br>
+　　　　　　　(停止/开启设定的自动截图，但保留手动快捷键截图功能，再按一次可切换模式)</li>
+</ol></li>
+<li>configuration file
+
+<ol>
+<li><strong>Sleep</strong>　　　　　休眠时间,即自动截图时间间隔</li>
+<li><strong>fatherFolder</strong>　　截图文件位置的父目录，程序会在该目录下生成一个当前日期的子文件夹</li>
+</ol></li>
+</ul>
+</article>
+  </div>
+
+
+  </div>
+  <div class="modal-backdrop"></div>
+</div>
+
+
+    </div>
+  </div>
+
+    </div>
+
+    <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+      <svg aria-hidden="true" class="octicon octicon-alert" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M15.72 12.5l-6.85-11.98C8.69 0.21 8.36 0.02 8 0.02s-0.69 0.19-0.87 0.5l-6.85 11.98c-0.18 0.31-0.18 0.69 0 1C0.47 13.81 0.8 14 1.15 14h13.7c0.36 0 0.69-0.19 0.86-0.5S15.89 12.81 15.72 12.5zM9 12H7V10h2V12zM9 9H7V5h2V9z"></path></svg>
+      <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+        <svg aria-hidden="true" class="octicon octicon-x" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75-1.48-1.48 3.75-3.75L0.77 4.25l1.48-1.48 3.75 3.75 3.75-3.75 1.48 1.48-3.75 3.75z"></path></svg>
+      </button>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      
+      <script crossorigin="anonymous" src="./webary_DesktopCapture_files/frameworks-1fdd144c4b02024b03654934bcd7eb308f34bcdd374d6579a984c850d69dfd08.js"></script>
+      <script async="async" crossorigin="anonymous" src="./webary_DesktopCapture_files/github-bac94d428d8433c18cd8a40ad6f352f6c8b4a18ea07c492a40003d7785a240ef.js"></script>
+      
+      
+      
+      
+    <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner hidden">
+      <svg aria-hidden="true" class="octicon octicon-alert" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M15.72 12.5l-6.85-11.98C8.69 0.21 8.36 0.02 8 0.02s-0.69 0.19-0.87 0.5l-6.85 11.98c-0.18 0.31-0.18 0.69 0 1C0.47 13.81 0.8 14 1.15 14h13.7c0.36 0 0.69-0.19 0.86-0.5S15.89 12.81 15.72 12.5zM9 12H7V10h2V12zM9 9H7V5h2V9z"></path></svg>
+      <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+      <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    </div>
+    <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path d="M7.48 8l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75-1.48-1.48 3.75-3.75L0.77 4.25l1.48-1.48 3.75 3.75 3.75-3.75 1.48 1.48-3.75 3.75z"></path></svg>
+    </button>
+  </div>
+</div>
+
+  
+
+
+<st-div id="__selection-translator__">
+  <st-div class="__st-box__" style="display: none; position: fixed; z-index: 99999; left: 0px; top: 0px; transform: translateX(462px) translateY(189px);">
+    <st-header>
+      <st-span class="st-icon-pin" title="固定"></st-span>
+      <st-span class="st-icon-down-open" title="展开"></st-span>
+      <st-span class="st-icon-cog" title="设置"></st-span>
+    </st-header>
+    <st-div class="__query-form__" style="display: none;">
+      <st-div>
+        <textarea placeholder="输入要翻译的句子或单词"></textarea>
+      </st-div>
+      <st-div>
+        <select>
+          <option value="">自动判断</option>
+          <option value="zh">中文</option><option value="zh-CN">中文(简体)</option><option value="zh-HK">中文(香港)</option><option value="zh-TW">中文(繁体)</option><option value="en">英语</option><option value="ja">日语</option><option value="ko">朝鲜语</option><option value="de">德语</option><option value="fr">法语</option><option value="ru">俄语</option><option value="th">泰语</option><option value="af">南非语</option><option value="ar">阿拉伯语</option><option value="az">阿塞拜疆语</option><option value="be">比利时语</option><option value="bg">保加利亚语</option><option value="ca">加泰隆语</option><option value="cs">捷克语</option><option value="cy">威尔士语</option><option value="da">丹麦语</option><option value="dv">第维埃语</option><option value="el">希腊语</option><option value="eo">世界语</option><option value="es">西班牙语</option><option value="et">爱沙尼亚语</option><option value="eu">巴士克语</option><option value="fa">法斯语</option><option value="fi">芬兰语</option><option value="fo">法罗语</option><option value="gl">加里西亚语</option><option value="gu">古吉拉特语</option><option value="he">希伯来语</option><option value="hi">印地语</option><option value="hr">克罗地亚语</option><option value="hu">匈牙利语</option><option value="hy">亚美尼亚语</option><option value="id">印度尼西亚语</option><option value="is">冰岛语</option><option value="it">意大利语</option><option value="ka">格鲁吉亚语</option><option value="kk">哈萨克语</option><option value="kn">卡纳拉语</option><option value="kok">孔卡尼语</option><option value="ky">吉尔吉斯语</option><option value="lt">立陶宛语</option><option value="lv">拉脱维亚语</option><option value="mi">毛利语</option><option value="mk">马其顿语</option><option value="mn">蒙古语</option><option value="mr">马拉地语</option><option value="ms">马来语</option><option value="mt">马耳他语</option><option value="nb">挪威语(伯克梅尔)</option><option value="nl">荷兰语</option><option value="ns">北梭托语</option><option value="pa">旁遮普语</option><option value="pl">波兰语</option><option value="pt">葡萄牙语</option><option value="qu">克丘亚语</option><option value="ro">罗马尼亚语</option><option value="sa">梵文</option><option value="se">北萨摩斯语</option><option value="sk">斯洛伐克语</option><option value="sl">斯洛文尼亚语</option><option value="sq">阿尔巴尼亚语</option><option value="sv">瑞典语</option><option value="sw">斯瓦希里语</option><option value="syr">叙利亚语</option><option value="ta">泰米尔语</option><option value="te">泰卢固语</option><option value="tl">塔加路语</option><option value="tn">茨瓦纳语</option><option value="tr">土耳其语</option><option value="ts">宗加语</option><option value="tt">鞑靼语</option><option value="uk">乌克兰语</option><option value="ur">乌都语</option><option value="uz">乌兹别克语</option><option value="vi">越南语</option><option value="xh">班图语</option><option value="zu">祖鲁语</option>
+        </select>
+        <st-div class="__exchange__">
+          <st-span class="st-icon-exchange"></st-span>
+        </st-div>
+        <select>
+          <option value="">自动选择</option>
+          <option value="zh">中文</option><option value="zh-CN">中文(简体)</option><option value="zh-HK">中文(香港)</option><option value="zh-TW">中文(繁体)</option><option value="en">英语</option><option value="ja">日语</option><option value="ko">朝鲜语</option><option value="de">德语</option><option value="fr">法语</option><option value="ru">俄语</option><option value="th">泰语</option><option value="af">南非语</option><option value="ar">阿拉伯语</option><option value="az">阿塞拜疆语</option><option value="be">比利时语</option><option value="bg">保加利亚语</option><option value="ca">加泰隆语</option><option value="cs">捷克语</option><option value="cy">威尔士语</option><option value="da">丹麦语</option><option value="dv">第维埃语</option><option value="el">希腊语</option><option value="eo">世界语</option><option value="es">西班牙语</option><option value="et">爱沙尼亚语</option><option value="eu">巴士克语</option><option value="fa">法斯语</option><option value="fi">芬兰语</option><option value="fo">法罗语</option><option value="gl">加里西亚语</option><option value="gu">古吉拉特语</option><option value="he">希伯来语</option><option value="hi">印地语</option><option value="hr">克罗地亚语</option><option value="hu">匈牙利语</option><option value="hy">亚美尼亚语</option><option value="id">印度尼西亚语</option><option value="is">冰岛语</option><option value="it">意大利语</option><option value="ka">格鲁吉亚语</option><option value="kk">哈萨克语</option><option value="kn">卡纳拉语</option><option value="kok">孔卡尼语</option><option value="ky">吉尔吉斯语</option><option value="lt">立陶宛语</option><option value="lv">拉脱维亚语</option><option value="mi">毛利语</option><option value="mk">马其顿语</option><option value="mn">蒙古语</option><option value="mr">马拉地语</option><option value="ms">马来语</option><option value="mt">马耳他语</option><option value="nb">挪威语(伯克梅尔)</option><option value="nl">荷兰语</option><option value="ns">北梭托语</option><option value="pa">旁遮普语</option><option value="pl">波兰语</option><option value="pt">葡萄牙语</option><option value="qu">克丘亚语</option><option value="ro">罗马尼亚语</option><option value="sa">梵文</option><option value="se">北萨摩斯语</option><option value="sk">斯洛伐克语</option><option value="sl">斯洛文尼亚语</option><option value="sq">阿尔巴尼亚语</option><option value="sv">瑞典语</option><option value="sw">斯瓦希里语</option><option value="syr">叙利亚语</option><option value="ta">泰米尔语</option><option value="te">泰卢固语</option><option value="tl">塔加路语</option><option value="tn">茨瓦纳语</option><option value="tr">土耳其语</option><option value="ts">宗加语</option><option value="tt">鞑靼语</option><option value="uk">乌克兰语</option><option value="ur">乌都语</option><option value="uz">乌兹别克语</option><option value="vi">越南语</option><option value="xh">班图语</option><option value="zu">祖鲁语</option>
+        </select>
+      </st-div>
+      <st-div>
+        <select>
+          <option value="YouDao">有道翻译</option>
+          <option value="BaiDu">百度翻译</option>
+          <option value="Bing">必应翻译</option>
+          <option value="Google">谷歌翻译</option>
+          <option value="GoogleCN">谷歌翻译（国内）</option>
+        </select>
+        <st-div class="__action-list__">
+          <st-div class="__button__ __btn-translate__">翻译
+            <st-span class="st-icon-down-dir"></st-span>
+          </st-div>
+          <st-div class="__expand__">
+            <st-div class="__button__">朗读</st-div>
+            <st-div class="__button__">复制</st-div>
+          </st-div>
+        </st-div>
+      </st-div>
+    </st-div>
+    <st-div class="__translate-result__" style="display: none;">正在查询，请稍候……</st-div>
+    <st-div class="__translate-result__">
+      <st-div style="display: none;">
+        <st-span></st-span>
+        <st-span class="__retry__">重试</st-span>
+      </st-div>
+      <st-div>
+        <st-div class="__phonetic__">
+          <st-span style="display: none;"></st-span>
+          <st-span class="__copy-and-read__">
+            <st-span>朗读</st-span>
+            <st-span style="display: none;">复制</st-span>
+          </st-span>
+        </st-div>
+        <st-div style="display: none;">
+          <st-ul>
+            
+          </st-ul>
+          <st-div class="__copy-and-read__">
+            <st-span class="__copy-and-read__">复制</st-span>
+          </st-div>
+        </st-div>
+        <st-div style="display: none;">
+          
+          <st-div class="__copy-and-read__">
+            <st-span class="__copy-and-read__">朗读</st-span>
+            <st-span class="__copy-and-read__">复制</st-span>
+          </st-div>
+        </st-div>
+      </st-div>
+    </st-div>
+    <st-footer>
+      <st-span style="display: none;">via
+        <a target="_blank" href=""></a></st-span>
+    </st-footer>
+  </st-div>
+  <st-div class="__st-btn__" style="display: none; position: fixed; z-index: 99999; left: 0px; top: 0px; transform: translateX(462px) translateY(189px) translateZ(0px);">译</st-div>
+</st-div></body></html>

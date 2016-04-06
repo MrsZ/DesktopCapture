@@ -1,37 +1,36 @@
-
-// DeskTopCaptureDlg.h : Í·ÎÄ¼ş
+ï»¿
+// DeskTopCaptureDlg.h : å¤´æ–‡ä»¶
 //
 
 #pragma once
 
 
-// CDesktopCaptureDlg ¶Ô»°¿ò
+// CDesktopCaptureDlg å¯¹è¯æ¡†
 class CDesktopCaptureDlg : public CDialogEx
 {
-    // ¹¹Ôì
 public:
-    CDesktopCaptureDlg(CWnd* pParent = NULL);
+    explicit CDesktopCaptureDlg(CWnd* pParent = NULL);
     ~CDesktopCaptureDlg();
-    //ÔÚÍ¨ÖªÀ¸ÏÔÊ¾ÌáÊ¾¿ò
+    //åœ¨é€šçŸ¥æ æ˜¾ç¤ºæç¤ºæ¡†
     void showTips(const CString& title, const CString& info, int op = NIM_MODIFY);
+    void OnCapture();
+    void OnOpenFolder();
 
-// ¶Ô»°¿òÊı¾İ
+    // å¯¹è¯æ¡†æ•°æ®
     enum { IDD = IDD_DESKTOPCAPTURE_DIALOG };
-
 protected:
-    virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV Ö§³Ö
+    virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV æ”¯æŒ
 
-// ÊµÏÖ
-protected:
     HICON m_hIcon;
-    NOTIFYICONDATA ndMain; //Í¨ÖªÏûÏ¢µÄ½á¹¹Ìå±äÁ¿
+    NOTIFYICONDATA ndMain; //é€šçŸ¥æ¶ˆæ¯çš„ç»“æ„ä½“å˜é‡
 
-    // Éú³ÉµÄÏûÏ¢Ó³Éäº¯Êı
+    // ç”Ÿæˆçš„æ¶ˆæ¯æ˜ å°„å‡½æ•°
     virtual BOOL OnInitDialog();
     virtual void OnOk();
     afx_msg void OnPaint();
     afx_msg HCURSOR OnQueryDragIcon();
-    afx_msg long OnHotkey(WPARAM wParam, LPARAM lParam);//È«¾Ö¿ì½İ¼ü
+    afx_msg long OnHotkey(WPARAM wParam, LPARAM lParam);//å…¨å±€å¿«æ·é”®
     afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+    afx_msg LRESULT OnNotifyIconMsg(WPARAM wParam, LPARAM lParam);//å¤„ç†é€šçŸ¥æ æ¶ˆæ¯
     DECLARE_MESSAGE_MAP()
 };

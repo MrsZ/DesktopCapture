@@ -1,4 +1,4 @@
-
+﻿
 // DeskTopCaptureDlg.cpp : 实现文件
 //
 
@@ -43,7 +43,7 @@ int GetEncoderClsid(const WCHAR* format, CLSID& _Clsid)
 CString captureImgPath = "";
 #include<direct.h>	//_mkdir
 //将当前屏幕保存到文件
-void CaptureScreen(char *filename = "")
+void CaptureScreen(const char *filename = "")
 {
     static const CString defaultDir = "D:/ScreenCapture/"; //默认目录
     char folder[500] = "";
@@ -57,7 +57,7 @@ void CaptureScreen(char *filename = "")
             strcpy(folder, defaultDir);
             _mkdir(folder);  //建立父级目录
             WritePrivateProfileString("ScreenCapture", "#温馨提示"
-                                      , "设定目录不可写,已自动设置为默认目录", ".\\config.ini");
+                , "设定目录不可写,已自动设置为默认目录", ".\\config.ini");
         }
         WritePrivateProfileString("ScreenCapture", "fatherFolder", folder, ".\\config.ini");
     }
@@ -102,7 +102,7 @@ void CaptureScreen(char *filename = "")
     CString ps = "\n您可按下Ctrl+Alt+1打开截图所在文件夹哟"; //附加信息
     if (lastFolder != folder)    //如果用户设置的目录不可写则提示
         ps = "\n啊哦,设定目录<" + CString(lastFolder) + ">不可写,已自动设置为默认目录:" + folder;
-    static CDesktopCaptureDlg* pDlg = (CDesktopCaptureDlg*)AfxGetMainWnd();
+    static CDesktopCaptureDlg* pDlg = static_cast<CDesktopCaptureDlg*>(AfxGetMainWnd());
     pDlg->showTips("截图成功", "已将截图文件保存到:" + fullPathName + ps);
 }
 
@@ -140,11 +140,17 @@ void CDesktopCaptureDlg::DoDataExchange(CDataExchange* pDX)
     CDialogEx::DoDataExchange(pDX);
 }
 
+#define WM_NOTIFYICONMSG WM_USER + 3 //托盘消息
+
 BEGIN_MESSAGE_MAP(CDesktopCaptureDlg, CDialogEx)
     ON_WM_PAINT()
     ON_WM_QUERYDRAGICON()
     ON_MESSAGE(WM_HOTKEY, OnHotkey) //添加此句实现全局快捷键
     ON_WM_LBUTTONDBLCLK()
+    ON_MESSAGE(WM_NOTIFYICONMSG, OnNotifyIconMsg)
+    ON_COMMAND(ID_Capture, OnCapture)
+    ON_COMMAND(ID_OpenFolder, OnOpenFolder)
+    ON_COMMAND(ID_Exit, OnCancel)
 END_MESSAGE_MAP()
 
 // CDesktopCaptureDlg 消息处理程序
@@ -152,17 +158,20 @@ END_MESSAGE_MAP()
 BOOL CDesktopCaptureDlg::OnInitDialog()
 {
     CDialogEx::OnInitDialog();
-
-    // 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动
-    //  执行此操作
+    // 设置此对话框的图标。当应用程序主窗口不是对话框时，框架将自动执行此操作
     SetIcon(m_hIcon, TRUE);			// 设置大图标
     SetIcon(m_hIcon, FALSE);		// 设置小图标
-    ShowWindow(SW_HIDE);//不显示窗口
-    ModifyStyle(WS_THICKFRAME, NULL);//不显示边框
+
+    ModifyStyle(WS_THICKFRAME, 0);//不显示边框
     ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);//不在任务栏显示
     MoveWindow(-8, 700, 10, 10);
 
-    // TODO: 在此添加额外的初始化代码
+    //利用互斥锁机制保证最多只有一个服务器程序正在运行
+    HANDLE hmutex = ::CreateMutex(NULL, true, "DesktopCapture");
+    if (ERROR_ALREADY_EXISTS == GetLastError()) { //若互斥锁已存在则直接关闭
+        MessageBox("请不要重复打开该程序哦,我已经在后台运行着呢^ _ ^", 0, MB_ICONWARNING);
+        exit(-1);
+    }
     //注册全局截图快捷键
     ::RegisterHotKey(m_hWnd, ID_HKCAPTURE, MOD_CONTROL | MOD_ALT, '0');
     //注册全局打开截图文件夹
@@ -171,14 +180,19 @@ BOOL CDesktopCaptureDlg::OnInitDialog()
     ::RegisterHotKey(m_hWnd, ID_HKChangeAutoCap, MOD_CONTROL | MOD_ALT, '2');
     //注册全局退出快捷键
     ::RegisterHotKey(m_hWnd, ID_HKExit, MOD_CONTROL | MOD_ALT, '9');
-    AfxBeginThread(catchScreenThread, 0); //开启辅助线程自动定时截图
-    //添加托盘消息
+    //开启辅助线程自动定时截图
+    AfxBeginThread(catchScreenThread, 0);
+
+    //设置托盘消息 - 必须在这里赋值，如果在构造函数赋值，鼠标指向托盘图标后即消失
     ndMain.cbSize = sizeof(NOTIFYICONDATA);
     ndMain.hWnd = m_hWnd;
     ndMain.uFlags = NIF_INFO | NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    ndMain.dwInfoFlags = NIIF_INFO;
     ndMain.hIcon = m_hIcon;
+    ndMain.uCallbackMessage = WM_NOTIFYICONMSG;
     strcpy(ndMain.szTip, "截图小工具");
     showTips("温馨提示", "截图工具已正常运行，按下Ctrl+Alt+0可以截图哦", NIM_ADD);
+
     return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -199,7 +213,8 @@ void CDesktopCaptureDlg::OnPaint()
 
         // 绘制图标
         dc.DrawIcon(x, y, m_hIcon);
-    } else {
+    }
+    else {
         CDialogEx::OnPaint();
     }
 }
@@ -208,33 +223,32 @@ HCURSOR CDesktopCaptureDlg::OnQueryDragIcon()
 {
     return static_cast<HCURSOR>(m_hIcon);
 }
-
+//处理热键消息
 long CDesktopCaptureDlg::OnHotkey(WPARAM wParam, LPARAM lParam)
 {
     switch (wParam) {
-    case ID_HKCAPTURE:
-        CaptureScreen();
-        break;
-    case ID_HKExit:
-        PostQuitMessage(-1);
-        break;
-    case ID_HKOPENFOLDER:
-        OnLButtonDblClk(0, 0);
-        break;
-    case ID_HKChangeAutoCap:
-        autoCapture = !autoCapture;
-        break;
-    default:
-        break;
+        case ID_HKCAPTURE:
+            CaptureScreen();
+            break;
+        case ID_HKExit:
+            PostQuitMessage(-1);
+            break;
+        case ID_HKOPENFOLDER:
+            OnLButtonDblClk(0, 0);
+            break;
+        case ID_HKChangeAutoCap:
+            autoCapture = !autoCapture;
+            break;
+        default:
+            break;
     }
     return 0;
 }
-
+//屏幕enter键响应的确认消息
 void CDesktopCaptureDlg::OnOk()
 {
 }
-
-//打开存放截图的文件夹
+//双击打开存放截图的文件夹
 void CDesktopCaptureDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
     if (captureImgPath == "") //路径为空表示还没保存过截图,先保存一张然后打开该文件夹
@@ -244,10 +258,42 @@ void CDesktopCaptureDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
     ShellExecute(GetSafeHwnd(), "open", captureImgPath, 0, 0, SW_SHOW);
     CDialogEx::OnLButtonDblClk(nFlags, point);
 }
-
-void CDesktopCaptureDlg::showTips(const CString& title, const CString& info, int op)
+//显示托盘消息
+inline void CDesktopCaptureDlg::showTips(const CString& title, const CString& info, int op)
 {
     strcpy(ndMain.szInfoTitle, title);//气泡标题
     strcpy(ndMain.szInfo, info);//气泡内容
     Shell_NotifyIcon(op, &ndMain);
+}
+//处理通知栏消息
+LRESULT CDesktopCaptureDlg::OnNotifyIconMsg(WPARAM wParam, LPARAM lParam)
+{
+    CPoint Point;
+    CMenu pMenu;//加载菜单
+    switch (lParam) {
+        case WM_RBUTTONDOWN://如果按下鼠标右建
+            if (pMenu.LoadMenu(IDR_MENU1)) {
+                CMenu* pPopup = pMenu.GetSubMenu(0);
+                GetCursorPos(&Point);
+                SetForegroundWindow();
+                pPopup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, Point.x, Point.y, this);
+            }
+            break;
+        case WM_LBUTTONDOWN:
+            this->ShowWindow(SW_SHOW);
+            break;
+        default:
+            break;
+    }
+    return 0;
+}
+//响应托盘菜单中的截图
+void CDesktopCaptureDlg::OnCapture()
+{
+    CaptureScreen();
+}
+//响应托盘菜单中的打开文件夹
+void CDesktopCaptureDlg::OnOpenFolder()
+{
+    OnLButtonDblClk(0, 0);
 }
